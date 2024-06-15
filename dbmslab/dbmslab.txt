@@ -1,0 +1,38 @@
+ create type addr_ty as object(street varchar2(60),city varchar(30),state char(2),zip varchar(9));
+  2  create type person_ty as object(name varchar2(25),address addr_ty);
+  3  create type emp_ty as object(emp_id varchar2(9),person person_ty);
+  4  create table emp_oo(full_emp emp_ty);
+  5  insert into emp_oo values(emp_ty('100',person_ty('ram',addr_ty('1000 tu','patiala','pb','147001'))));
+  6  insert into emp_oo values(emp_ty('101',person_ty('sham',addr_ty('1001 tu','patiala','pb','147001'))));
+  7  select*from emp_oo;
+  8  select * from emp_oo;
+  9  desc emp_oo;
+ 10
+
+create table employees(
+   emp_id int primary key,
+   ename varchar(255) not null
+   );
+create table children(
+   child_id int primary key,
+    emp_id int,
+    name varchar(255) not null,
+    birthday date,
+    foreign key(emp_id)references
+    employees(emp_id)
+    );
+create table skills(
+   skill_id int primary key,
+    emp_id int,
+    type varchar(255) not null,
+    foreign key(emp_id)references
+    employees(emp_id)
+    );
+
+ select e.ename
+   from employees e
+   join children c on e.emp_id=c.emp_id
+   where c.birthday>='2000-01-01';
+
+select distinct e.name
+from employee
